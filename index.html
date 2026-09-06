@@ -3,14 +3,748 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scott Knudson</title>
+  <title>Knutey</title>
   <style>
-    h1 {
-      color: black;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: #ffffff;
+      font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1200px;
+      padding: 34px 24px 24px 24px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header {
+      position: relative;
+      font-family: Avenir, "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #222;
+      margin: 0 0 64px 0;
+      padding-bottom: 24px;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 0.5px;
+      background: #e0e0e0;
+    }
+
+    .layout {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      width: 100%;
+    }
+
+    .layout__top {
+      display: flex;
+      align-items: flex-start;
+      gap: 80px;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 0;
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 48px 0 24px 0;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 500;
+      font-size: 1.35rem;
+      color: #222;
+    }
+
+    .about {
+      width: 700px;
+      font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .about h1 {
+      margin: 0 0 24px 0;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: #222;
+    }
+
+    .about__row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px 0;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    .about__row:last-child {
+      margin-bottom: 0;
+    }
+
+    .about__description {
+      margin: 32px 0 0 0;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .about__icon {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 12px;
+      color: #db6969;
+    }
+
+    .about__icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    .card {
+      width: 300px;
+      min-width: 300px;
+      height: 200px;
+      flex-shrink: 0;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 30px;
+      border: 0.5px solid #e0e0e0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card__left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      flex-shrink: 0;
+      margin-left: 40px;
+    }
+
+    .card__avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 2.25rem;
+      color: #222;
+    }
+
+    .card__left .card__surname {
+      font-size: 0.825rem;
+      color: #222;
+      font-weight: 400;
+      margin: -6px 0 0 0;
+      line-height: 1.3;
+    }
+
+    .card__right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      min-width: 0;
+      margin-left: auto;
+      margin-right: 24px;
+      text-align: left;
+    }
+
+    .card__right .card__value {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #222;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .card__right .card__label {
+      font-size: 0.5775rem;
+      font-weight: 500;
+      color: #222;
+      margin: 0 0 0.25px 0;
+      line-height: 1.3;
+    }
+
+    .card__right .card__divider {
+      height: 0.5px;
+      background: #ddd;
+      margin: 5.6px 0;
+      border: none;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .apps-section {
+      position: relative;
+    }
+
+    .apps-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .apps-header .section-title {
+      margin: 0;
+    }
+
+    .apps-section .carousel-btns {
+      display: none;
+    }
+
+    .apps-images {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 24px;
+      margin-top: 0;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      padding-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .apps-images::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .apps-images::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    .apps-images::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .apps-images img {
+      max-width: 280px;
+      width: auto;
+      height: auto;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .apps-image-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+    }
+
+    .apps-image-wrapper {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .apps-image-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .apps-image-wrapper:hover::after {
+      opacity: 1;
+    }
+
+    .apps-image-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .apps-image-wrapper:hover .apps-image-overlay {
+      opacity: 1;
+    }
+
+    .apps-images img.app-logo--smaller {
+      max-width: 224px;
+      margin-right: 5px;
+    }
+
+    .apps-images img.app-logo--smaller-30 {
+      max-width: 196px;
+    }
+
+    .apps-quiz-btn {
+      flex-shrink: 0;
+      padding: 14px 24px;
+      font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #222;
+      background: #fff;
+      border: 0.5px solid #e0e0e0;
+      border-radius: 30px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .apps-quiz-btn:hover {
+      background: #f8f8f8;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+    }
+
+    .tech-companies-logos {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 24px;
+      margin-top: 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      padding-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tech-companies-logos::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .tech-companies-logos::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    .tech-companies-logos::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .tech-companies-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tech-companies-header .section-title {
+      margin: 0;
+    }
+
+    .carousel-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tech-companies-carousel {
+      position: relative;
+    }
+
+    .tech-companies-carousel .tech-companies-logos {
+      margin-top: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: #EBEBEB;
+      color: #222;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .carousel-btn:hover {
+      background: #c8c8c8;
+    }
+
+    .carousel-btn__icon--left {
+      transform: translateX(-1px);
+    }
+
+    .carousel-btn__icon--right {
+      transform: translateX(1px);
+    }
+
+    .carousel-btn:disabled {
+      cursor: default;
+      pointer-events: none;
+      background: #F2F2F2;
+      color: #DDDDDD;
+    }
+
+    .carousel-btn:disabled:hover {
+      background: #F2F2F2;
+    }
+
+    .tech-company-card--link {
+      display: flex;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .tech-company-card--link:hover {
+      border-color: #C1C1C1;
+    }
+
+    .tech-company-card {
+      width: 255px;
+      flex-shrink: 0;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 30px;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .tech-company-card__logo-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-height: 0;
+      margin-left: 5px;
+    }
+
+    .tech-company-card__logo-wrap--homie {
+      margin-left: 0;
+    }
+
+    .tech-company-card .tech-company-logo {
+      max-width: 180px;
+      height: auto;
+    }
+
+    .tech-company-card .tech-company-logo--smaller {
+      max-width: 126px;
+    }
+
+    .tech-company-card__text {
+      margin-top: auto;
+      margin-left: 5px;
+      margin-bottom: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tech-company-item__role {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #222;
+      margin: 0;
+    }
+
+    .tech-company-item__status {
+      font-size: 0.825rem;
+      font-weight: 400;
+      color: #222;
+      margin: 0;
+    }
+
+    @media (max-width: 1000px) {
+      .header {
+        margin-bottom: 32px;
+      }
+
+      .layout__top {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .about h1 {
+        display: none;
+      }
+
+      .about {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 495px) {
+      .apps-section .carousel-btns {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Hi, I'm Scott Knudson</h1>
+  <div class="page">
+    <div class="layout">
+      <header class="header">Knutey</header>
+      <div class="layout__top">
+    <div class="card">
+      <div class="card__left">
+        <img class="card__avatar" src="assets/profile.png" alt="Scott">
+        <h2>Scott</h2>
+        <span class="card__surname">Knudson</span>
+      </div>
+      <div class="card__right">
+        <span class="card__label">Product Management</span>
+        <span class="card__value">13 yrs</span>
+        <hr class="card__divider">
+        <span class="card__label">Leadership</span>
+        <span class="card__value">6 yrs</span>
+        <hr class="card__divider">
+        <span class="card__label">Tech Companies</span>
+        <span class="card__value">5</span>
+      </div>
+    </div>
+    <section class="about">
+      <h1>About Me</h1>
+      <div class="about__row">
+        <span class="about__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+        </span>
+        <span>eCommerce-focused with SaaS depth</span>
+      </div>
+      <div class="about__row">
+        <span class="about__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+        </span>
+        <span>Industries Experience: Retail, Real Estate, Hospitality, Proptech, Maintenance</span>
+      </div>
+      <div class="about__row">
+        <span class="about__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
+        <span>Data-led. Experimentation-driven. Outcome-obsessed.</span>
+      </div>
+      <div class="about__row">
+        <span class="about__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/></svg>
+        </span>
+        <span>Team builder and coach</span>
+      </div>
+      <div class="about__row">
+        <span class="about__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </span>
+        <span>Live in Utah</span>
+      </div>
+      <p class="about__description">Based in Sandy, Utah, our family lives to ski Alta by winter and boat on the lakes by summer. With +13 years in product management across diverse industries, I bring versatility, strategic thinking, and a data-driven approach. I'm passionate about helping product managers prioritize effectively, balance business and customer needs, and deliver meaningful outcomes with insight and efficiency.</p>
+    </section>
+      </div>
+      <hr class="section-divider" aria-hidden="true">
+      <div class="apps-section">
+        <div class="apps-header">
+          <h2 class="section-title">My Applications</h2>
+          <div class="carousel-btns">
+            <button type="button" class="carousel-btn carousel-btn--left apps-carousel-btn--left" aria-label="Scroll left">
+              <svg class="carousel-btn__icon carousel-btn__icon--left" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button type="button" class="carousel-btn carousel-btn--right apps-carousel-btn--right" aria-label="Scroll right">
+              <svg class="carousel-btn__icon carousel-btn__icon--right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="apps-images">
+          <a href="movie-taste.html" class="apps-image-link apps-image-wrapper">
+            <img class="app-logo--smaller" src="assets/movie-taste.png" alt="Movie Taste by Knutey 2026">
+            <span class="apps-image-overlay">Learn More</span>
+          </a>
+          <span class="apps-image-wrapper">
+            <img class="app-logo--smaller-30" src="assets/personal-finance.png" alt="Personal Finance by Knutey 2026">
+            <span class="apps-image-overlay">Learn More</span>
+          </span>
+          <a href="all-suits.html" class="apps-quiz-btn">PGP Quizzes</a>
+        </div>
+      </div>
+      <hr class="section-divider" aria-hidden="true">
+      <div class="tech-companies-section">
+      <div class="tech-companies-header">
+        <h2 class="section-title">Tech Companies</h2>
+        <div class="carousel-btns">
+          <button type="button" class="carousel-btn carousel-btn--left" aria-label="Scroll left">
+            <svg class="carousel-btn__icon carousel-btn__icon--left" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="carousel-btn carousel-btn--right" aria-label="Scroll right">
+            <svg class="carousel-btn__icon carousel-btn__icon--right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="tech-companies-carousel">
+        <div class="tech-companies-logos">
+        <a href="https://www.tailoredbrands.com" target="_blank" rel="noopener noreferrer" class="tech-company-card tech-company-card--link">
+          <div class="tech-company-card__logo-wrap">
+            <img class="tech-company-logo" src="assets/tailoreed-logo.svg" alt="Tailoreed">
+          </div>
+          <div class="tech-company-card__text">
+            <span class="tech-company-item__role">Men's Formalwear</span>
+            <span class="tech-company-item__status">Director, Product Management – Current</span>
+          </div>
+        </a>
+        <a href="https://www.limble.com" target="_blank" rel="noopener noreferrer" class="tech-company-card tech-company-card--link">
+          <div class="tech-company-card__logo-wrap">
+            <img class="tech-company-logo tech-company-logo--smaller" src="assets/limble-logo.png" alt="Limble">
+          </div>
+          <div class="tech-company-card__text">
+            <span class="tech-company-item__role">Maintenance Tech</span>
+            <span class="tech-company-item__status">Head, Product Incubation – 2023-2025</span>
+          </div>
+        </a>
+        <a href="https://www.entrata.com" target="_blank" rel="noopener noreferrer" class="tech-company-card tech-company-card--link">
+          <div class="tech-company-card__logo-wrap">
+            <img class="tech-company-logo tech-company-logo--smaller" src="assets/entrata-logo.svg" alt="Entrata">
+          </div>
+          <div class="tech-company-card__text">
+            <span class="tech-company-item__role">PropTech</span>
+            <span class="tech-company-item__status">Director, Product Incubation – 2022-2023</span>
+          </div>
+        </a>
+        <a href="https://www.homie.com" target="_blank" rel="noopener noreferrer" class="tech-company-card tech-company-card--link">
+          <div class="tech-company-card__logo-wrap tech-company-card__logo-wrap--homie">
+            <img class="tech-company-logo tech-company-logo--smaller" src="assets/homie-logo.png" alt="Homie">
+          </div>
+          <div class="tech-company-card__text">
+            <span class="tech-company-item__role">Real Estate Marketplace</span>
+            <span class="tech-company-item__status">Group Product Manager – 2019-2022</span>
+          </div>
+        </a>
+        <a href="https://www.travelpass.com" target="_blank" rel="noopener noreferrer" class="tech-company-card tech-company-card--link">
+          <div class="tech-company-card__logo-wrap">
+            <img class="tech-company-logo tech-company-logo--smaller" src="assets/travelpass-logo.png" alt="Travelpass">
+          </div>
+          <div class="tech-company-card__text">
+            <span class="tech-company-item__role">Travel Marketplace</span>
+            <span class="tech-company-item__status">Product Manager – 2013-2019</span>
+          </div>
+        </a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var appsSection = document.querySelector('.apps-section');
+      if (appsSection) {
+        var appsImages = appsSection.querySelector('.apps-images');
+        var appsLeftBtn = appsSection.querySelector('.apps-carousel-btn--left');
+        var appsRightBtn = appsSection.querySelector('.apps-carousel-btn--right');
+        var appsScrollAmount = 250;
+
+        function updateAppsButtonState() {
+          if (!appsImages || !appsLeftBtn || !appsRightBtn) return;
+          var scrollLeft = appsImages.scrollLeft;
+          var maxScroll = appsImages.scrollWidth - appsImages.clientWidth;
+          appsLeftBtn.disabled = scrollLeft <= 1;
+          appsRightBtn.disabled = scrollLeft >= maxScroll - 1;
+        }
+
+        if (appsLeftBtn && appsImages) {
+          appsLeftBtn.addEventListener('click', function() {
+            if (appsLeftBtn.disabled) return;
+            appsImages.scrollBy({ left: -appsScrollAmount, behavior: 'smooth' });
+          });
+        }
+        if (appsRightBtn && appsImages) {
+          appsRightBtn.addEventListener('click', function() {
+            if (appsRightBtn.disabled) return;
+            appsImages.scrollBy({ left: appsScrollAmount, behavior: 'smooth' });
+          });
+        }
+        if (appsImages) {
+          appsImages.addEventListener('scroll', updateAppsButtonState);
+        }
+        window.addEventListener('resize', updateAppsButtonState);
+        updateAppsButtonState();
+      }
+    })();
+    (function() {
+      var section = document.querySelector('.tech-companies-section');
+      if (!section) return;
+      var logos = section.querySelector('.tech-companies-logos');
+      var leftBtn = section.querySelector('.carousel-btn--left');
+      var rightBtn = section.querySelector('.carousel-btn--right');
+      var scrollAmount = 279;
+
+      function updateButtonState() {
+        if (!logos || !leftBtn || !rightBtn) return;
+        var scrollLeft = logos.scrollLeft;
+        var maxScroll = logos.scrollWidth - logos.clientWidth;
+        leftBtn.disabled = scrollLeft <= 1;
+        rightBtn.disabled = scrollLeft >= maxScroll - 1;
+      }
+
+      if (leftBtn && logos) {
+        leftBtn.addEventListener('click', function() {
+          if (leftBtn.disabled) return;
+          logos.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+      }
+      if (rightBtn && logos) {
+        rightBtn.addEventListener('click', function() {
+          if (rightBtn.disabled) return;
+          logos.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
+      if (logos) {
+        logos.addEventListener('scroll', updateButtonState);
+      }
+      window.addEventListener('resize', updateButtonState);
+      updateButtonState();
+    })();
+  </script>
 </body>
 </html>

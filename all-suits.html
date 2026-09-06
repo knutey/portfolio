@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Suits | Knutey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: #ffffff;
+      font-family: Roboto, sans-serif;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 24px 24px 24px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header {
+      position: relative;
+      height: 65px;
+      min-height: 65px;
+      max-height: 65px;
+      box-sizing: border-box;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #222;
+      margin: 0 0 30px 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .header__right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: auto;
+    }
+
+    .header a {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+    }
+
+    .header__logo {
+      height: 15px;
+      width: auto;
+      display: block;
+    }
+
+    .header__hamburger {
+      height: 13px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+      color: #000;
+    }
+
+    .header__hamburger line {
+      stroke: #000;
+    }
+
+    .header__search-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: #f2f2f2;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .header__search {
+      height: 18px;
+      width: auto;
+      display: block;
+      color: #000;
+    }
+
+    .header__search circle,
+    .header__search line {
+      stroke: #000;
+    }
+
+    .header__cart {
+      height: 22px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+      color: #000;
+    }
+
+    .header__cart path,
+    .header__cart circle,
+    .header__cart line {
+      stroke: #000;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 7px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+    }
+
+    .layout {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      width: 100%;
+    }
+
+    .layout__top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .about {
+      width: 700px;
+      margin-left: -5px;
+      margin-top: 0;
+      font-family: Roboto, sans-serif;
+    }
+
+    .about__breadcrumb {
+      margin: 0 0 4px 0;
+      padding-bottom: 5px;
+      font-size: 0.6rem;
+      font-weight: 374;
+      color: #888;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .about__breadcrumb-sep {
+      font-weight: 100;
+      font-size: 0.39rem;
+    }
+
+    .about h1 {
+      margin: 0 0 24px 0;
+      font-size: 1.4rem;
+      font-weight: 399;
+      color: #222;
+    }
+
+    .about__count {
+      margin-left: 4px;
+      color: #888;
+      font-weight: 300;
+      font-size: 0.98rem;
+    }
+
+    .about__bar {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      height: 75px;
+      background: #f5f5f5 url(assets/help-choosing-bg.png) center center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      box-sizing: border-box;
+    }
+
+    .about__bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    .about__bar.is-hidden {
+      display: none;
+    }
+
+    .about__bar-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 24px;
+      box-sizing: border-box;
+    }
+
+    .about__bar::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+      height: 0.5px;
+      background: #e0e0e0;
+    }
+
+    .about__filter-row {
+      position: relative;
+      margin-top: 29px;
+      margin-bottom: 21px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .about__filter-row::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 0.5px;
+      background: #e0e0e0;
+    }
+
+    .about__filter-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .about__color-btn,
+    .about__pattern-btn,
+    .about__brand-btn,
+    .about__size-btn,
+    .about__occasion-btn {
+      width: 82px;
+      box-sizing: border-box;
+      display: inline-block;
+      padding: 8px 22px;
+      font-family: Roboto, sans-serif;
+      font-size: 1rem;
+      font-weight: 380;
+      color: #7d7d7d;
+      background: #f2f2f2;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .about__pattern-btn {
+      padding-left: 16px;
+    }
+
+    .about__brand-btn {
+      padding-left: 20px;
+    }
+
+    .about__occasion-btn {
+      padding-left: 9px;
+    }
+
+    .about__color-btn:hover,
+    .about__pattern-btn:hover,
+    .about__brand-btn:hover,
+    .about__size-btn:hover,
+    .about__occasion-btn:hover {
+      background: #e8e8e8;
+    }
+
+    .about__pickup-label {
+      margin-left: auto;
+      font-size: 1rem;
+      font-weight: 320;
+      color: #222;
+    }
+
+    .about__pickup-circle {
+      width: 26px;
+      height: 26px;
+      margin-right: -5px;
+      border-radius: 50%;
+      background: #fff;
+      border: 0.5px solid #e0e0e0;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about__pickup-shapes {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-left: 8px;
+    }
+
+    .about__pickup-oval {
+      width: 20px;
+      height: 10px;
+      border-radius: 5px;
+      background: #b3b3b3;
+      flex-shrink: 0;
+    }
+
+    .about__filter-label {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 320;
+      color: #222;
+    }
+
+    .about__filter-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: #888;
+    }
+
+    .about__filter-icon path,
+    .about__filter-icon line,
+    .about__filter-icon polygon {
+      stroke: #888;
+      fill: none;
+    }
+
+    .about__bar-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #4d9cd4;
+    }
+
+    .about__product-grid {
+      display: block;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      height: auto;
+      margin-top: 15px;
+      object-fit: contain;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.2s ease-out;
+      overflow: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px;
+      box-sizing: border-box;
+    }
+
+    .modal-overlay.is-open {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: #222;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.25;
+    }
+
+    .modal-close:hover {
+      color: #666;
+    }
+
+    .modal-back {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .modal-back:hover {
+      color: #222;
+      text-decoration: underline;
+    }
+
+    .modal-back.is-hidden {
+      visibility: hidden;
+    }
+
+    .modal-step-indicator {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 44px;
+      display: flex;
+      align-items: center;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666;
+      text-align: center;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 24px 48px 24px;
+      text-align: center;
+      overflow: visible;
+    }
+
+    .modal-title {
+      max-width: calc(100% - 100px);
+      margin: 0 auto 32px auto;
+      font-family: Roboto, sans-serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #222;
+      line-height: 1.2;
+    }
+
+    .modal-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 70%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .modal-pill {
+      width: 100%;
+      padding: 16px 24px;
+      font-family: Roboto, sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #222;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .modal-pill:hover {
+      background: #f5f5f5;
+      border-color: #ccc;
+    }
+
+    .modal-pill.is-selected {
+      background: #fff;
+      border-color: #000;
+      font-weight: 400;
+    }
+
+    .modal-skip {
+      display: block;
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666;
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .modal-skip:hover {
+      color: #222;
+      text-decoration: underline;
+    }
+
+    .modal-step-icon {
+      display: block;
+      margin: 0 auto 25px auto;
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+    }
+
+    .modal-step-num {
+      display: block;
+      margin-bottom: 8px;
+      text-align: center;
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #666;
+    }
+
+    .modal-step {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 100%;
+      box-sizing: border-box;
+      transform: translateX(-50%);
+      transition: transform 0.175s ease-out;
+      pointer-events: none;
+    }
+
+    .modal-step.modal-step--center {
+      transform: translateX(-50%);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .modal-step.modal-step--left {
+      transform: translateX(-150%);
+    }
+
+    .modal-step .modal-step-icon,
+    .modal-step .modal-title,
+    .modal-step .modal-pills,
+    .modal-step .modal-skip {
+      transition: opacity 0.1s ease-in;
+    }
+
+    .modal-step .modal-step-5-content {
+      transition: transform 0.225s ease-out, opacity 0.1s ease-in;
+    }
+
+    .modal-step.modal-step--left .modal-step-icon,
+    .modal-step.modal-step--left .modal-title,
+    .modal-step.modal-step--left .modal-pills,
+    .modal-step.modal-step--left .modal-skip,
+    .modal-step.modal-step--left .modal-step-5-content {
+      opacity: 0;
+    }
+
+    .modal-step.modal-step--right {
+      transform: translateX(100%);
+    }
+
+    .modal-overlay.modal--no-transition .modal-step {
+      transition: none;
+    }
+
+    .modal-textarea {
+      width: calc(100% - 50px);
+      max-width: calc(100% - 50px);
+      min-height: 120px;
+      padding: 16px;
+      font-family: Roboto, sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #222;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .modal-textarea::placeholder {
+      color: #999;
+    }
+
+    .modal-submit-btn {
+      display: block;
+      width: calc(100% - 50px);
+      max-width: calc(100% - 50px);
+      margin: 24px auto 0 auto;
+      padding: 14px 24px;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 350;
+      color: #fff;
+      background: #001e56;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .modal-submit-btn:hover {
+      background: #002a6f;
+    }
+
+    .modal-submit-btn.is-hidden {
+      display: none;
+    }
+
+    .modal-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 24px;
+      min-height: 48px;
+    }
+
+    .modal-loading.is-hidden {
+      display: none;
+    }
+
+    .modal-loading__spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #001e56;
+      border-radius: 50%;
+      animation: modal-spin 0.8s linear infinite;
+    }
+
+    @keyframes modal-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .modal-step-5-content {
+      width: 100%;
+      transition: transform 0.225s ease-out;
+    }
+
+    #modal-step-5.modal-step--success .modal-step-5-content {
+      transform: translateX(-100%);
+    }
+
+    .modal-step-success {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease 0.35s, visibility 0s linear 0.65s;
+    }
+
+    .modal-step-success-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    .modal-step-success-actions {
+      flex-shrink: 0;
+      min-height: 70px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #modal-step-5.modal-step--success .modal-step-success {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease 0.35s, visibility 0s linear 0;
+    }
+
+    .modal-step-success-check {
+      flex-shrink: 0;
+      margin-top: 100px;
+      margin-bottom: 24px;
+      align-self: center;
+    }
+
+    .modal-step-success-circle {
+      width: 64px;
+      height: 64px;
+    }
+
+    .modal-step-success-circle-bg {
+      stroke-dasharray: 151;
+      stroke-dashoffset: 151;
+      transition: stroke-dashoffset 0.375s ease 0.3s;
+    }
+
+    #modal-step-5.modal-step--success .modal-step-success-circle-bg {
+      stroke-dashoffset: 0;
+    }
+
+    .modal-step-success-checkmark {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      transition: stroke-dashoffset 0.2625s ease 0.6375s;
+    }
+
+    #modal-step-5.modal-step--success .modal-step-success-checkmark {
+      stroke-dashoffset: 0;
+    }
+
+    .modal-step-success-title {
+      margin: 0 0 16px 0;
+      font-family: Roboto, sans-serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #222;
+      align-self: center;
+      opacity: 0;
+      transition: opacity 0.2625s ease 0.6375s;
+    }
+
+    #modal-step-5.modal-step--success .modal-step-success-title {
+      opacity: 1;
+    }
+
+    .modal-step-success-text {
+      margin: 0 0 0 25px;
+      font-family: Roboto, sans-serif;
+      font-size: 1.0925rem;
+      font-weight: 400;
+      color: #222;
+      line-height: 1.5;
+      width: calc(100% - 50px);
+      max-width: calc(100% - 50px);
+      text-align: left;
+      box-sizing: border-box;
+    }
+
+    .modal-step-success-text--block {
+      margin-bottom: 10px;
+    }
+
+    #modal-step-success-text-1 {
+      margin-top: 25px;
+    }
+
+    .modal-step-success-text .modal-step-success-strong {
+      font-weight: 700;
+    }
+
+    .modal-step-success-btn {
+      display: block;
+      width: calc(100% - 50px);
+      max-width: calc(100% - 50px);
+      margin: 25px auto 0;
+      padding: 14px 24px;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 350;
+      color: #fff;
+      background: #001e56;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      align-self: center;
+    }
+
+    .modal-step-success-btn:hover {
+      background: #002a6f;
+    }
+
+    .modal-step-success-btn.is-hidden {
+      display: none;
+    }
+
+    .about__bar-btn {
+      padding: 10px 20px;
+      font-family: Roboto, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #313142;
+      background: #fff;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .about__bar-btn:hover {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="layout">
+      <header class="header">
+        <svg class="header__hamburger" viewBox="0 0 20 13" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <line x1="0" y1="2" x2="20" y2="2"/>
+          <line x1="0" y1="6.5" x2="20" y2="6.5"/>
+          <line x1="0" y1="11" x2="20" y2="11"/>
+        </svg>
+        <a href="index.html"><img src="assets/mw_icon_logo.svg" alt="Knutey" class="header__logo"></a>
+        <span class="header__right">
+          <span class="header__search-wrap">
+            <svg class="header__search" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="16.65" y1="16.65" x2="24" y2="24"/>
+            </svg>
+          </span>
+          <svg class="header__cart" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </span>
+      </header>
+      <div class="layout__top">
+        <section class="about">
+          <p class="about__breadcrumb"><span>Home</span><span class="about__breadcrumb-sep">•</span><span>Clothing</span><span class="about__breadcrumb-sep">•</span><span>Suits</span></p>
+          <h1 id="page-title">Men's Suits<span class="about__count">(107)</span></h1>
+          <div class="about__bar" id="about-bar">
+            <div class="about__bar-inner">
+              <span class="about__bar-text">Find a suit, <span style="color: #fff;">tailored to you</span></span>
+              <button type="button" class="about__bar-btn">Get Suited</button>
+            </div>
+          </div>
+          <div class="about__filter-row">
+            <p class="about__filter-label">Filter</p>
+<svg class="about__filter-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <span class="about__pickup-label" id="pickup-label">Pick Up (123)</span>
+            <span class="about__pickup-shapes">
+              <span class="about__pickup-circle" aria-hidden="true"></span>
+              <span class="about__pickup-oval" aria-hidden="true"></span>
+            </span>
+          </div>
+          <div class="about__filter-btns">
+          <button type="button" class="about__color-btn">Color</button>
+          <button type="button" class="about__pattern-btn">Pattern</button>
+          <button type="button" class="about__brand-btn">Brand</button>
+          <button type="button" class="about__size-btn">Size</button>
+          <button type="button" class="about__occasion-btn">Occasion</button>
+        </div>
+          <img class="about__product-grid" id="product-grid-img" src="assets/suit-product-grid.png" alt="Men's suits product listing">
+        </section>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="get-started-modal" aria-hidden="true">
+    <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <button type="button" class="modal-back" id="modal-back-btn" aria-label="Back">Back</button>
+    <div class="modal-step-indicator" id="modal-step-indicator" aria-live="polite">1 of 5</div>
+    <div class="modal-content">
+      <div class="modal-step modal-step--center" id="modal-step-1">
+        <img src="assets/occasion-icon.png" alt="" class="modal-step-icon modal-step-icon--occasion" width="220" height="220">
+        <h1 class="modal-title">What's your occasion for a suit?</h1>
+        <div class="modal-pills">
+          <button type="button" class="modal-pill" data-step="occasion">My Wedding</button>
+          <button type="button" class="modal-pill" data-step="occasion">Someone Else's Wedding</button>
+          <button type="button" class="modal-pill" data-step="occasion">Work or Interview</button>
+          <button type="button" class="modal-pill" data-step="occasion">Another Event</button>
+        </div>
+        <button type="button" class="modal-skip" data-skip-to="2">Skip</button>
+      </div>
+      <div class="modal-step modal-step--right" id="modal-step-2" aria-hidden="true">
+        <img src="assets/showup-icon.png" alt="" class="modal-step-icon modal-step-icon--showup" width="220" height="220">
+        <h1 class="modal-title">What statement should your suit make?</h1>
+        <div class="modal-pills">
+          <button type="button" class="modal-pill" data-step="showup">Confident &amp; Modern</button>
+          <button type="button" class="modal-pill" data-step="showup">Professional &amp; Reliable</button>
+          <button type="button" class="modal-pill" data-step="showup">Classic &amp; Refined</button>
+        </div>
+        <button type="button" class="modal-skip" data-skip-to="3">Skip</button>
+      </div>
+      <div class="modal-step modal-step--right" id="modal-step-3" aria-hidden="true">
+        <img src="assets/fit-icon.png" alt="" class="modal-step-icon modal-step-icon--fit" width="220" height="220">
+        <h1 class="modal-title">How should your suit fit?</h1>
+        <div class="modal-pills">
+          <button type="button" class="modal-pill" data-step="look">Close &amp; Tailored</button>
+          <button type="button" class="modal-pill" data-step="look">Relaxed &amp; Roomy</button>
+          <button type="button" class="modal-pill" data-step="look">Comfortable in Between</button>
+        </div>
+        <button type="button" class="modal-skip" data-skip-to="4">Skip</button>
+      </div>
+      <div class="modal-step modal-step--right" id="modal-step-4" aria-hidden="true">
+        <img src="assets/timing-icon.png" alt="" class="modal-step-icon modal-step-icon--timing" width="220" height="220">
+        <h1 class="modal-title">When do you need your suit?</h1>
+        <div class="modal-pills">
+          <button type="button" class="modal-pill" data-step="timing">Today</button>
+          <button type="button" class="modal-pill" data-step="timing">This Week</button>
+          <button type="button" class="modal-pill" data-step="timing">Next Week</button>
+          <button type="button" class="modal-pill" data-step="timing">Flexible</button>
+        </div>
+        <button type="button" class="modal-skip" data-skip-to="5">Skip</button>
+      </div>
+      <div class="modal-step modal-step--right" id="modal-step-5" aria-hidden="true">
+        <div class="modal-step-5-content">
+          <img src="assets/matters-icon.png" alt="" class="modal-step-icon modal-step-icon--matters" width="220" height="220">
+          <h1 class="modal-title">What else matters to you?</h1>
+          <textarea class="modal-textarea" placeholder="Preferences, fit concerns, or whatever matters to you..." rows="5"></textarea>
+          <button type="button" class="modal-submit-btn" id="modal-submit-btn">Build My Suit Suggestions</button>
+          <div class="modal-loading is-hidden" id="modal-loading" aria-hidden="true">
+            <span class="modal-loading__spinner" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="modal-step-success" id="modal-step-success" aria-live="polite" aria-hidden="true">
+          <div class="modal-step-success-content">
+            <div class="modal-step-success-check">
+              <svg class="modal-step-success-circle" viewBox="0 0 52 52" aria-hidden="true">
+                <circle class="modal-step-success-circle-bg" cx="26" cy="26" r="24" fill="none" stroke="#22c55e" stroke-width="2"/>
+                <path class="modal-step-success-checkmark" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 27 l7 7 17-18"/>
+              </svg>
+            </div>
+            <h2 class="modal-step-success-title" id="modal-step-success-title">All done!</h2>
+            <p class="modal-step-success-text modal-step-success-text--block" id="modal-step-success-text-1"></p>
+            <p class="modal-step-success-text modal-step-success-text--block" id="modal-step-success-text-2"></p>
+            <p class="modal-step-success-text" id="modal-step-success-text-3"></p>
+          </div>
+          <div class="modal-step-success-actions">
+            <button type="button" class="modal-step-success-btn is-hidden" id="modal-step-success-btn">See My Suit Suggestions</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var modal = document.getElementById('get-started-modal');
+      var openBtn = document.querySelector('.about__bar-btn');
+      var closeBtn = document.getElementById('modal-close-btn');
+      var step1 = document.getElementById('modal-step-1');
+      var step2 = document.getElementById('modal-step-2');
+      var step3 = document.getElementById('modal-step-3');
+      var step4 = document.getElementById('modal-step-4');
+      var step5 = document.getElementById('modal-step-5');
+      var backBtn = document.getElementById('modal-back-btn');
+      var stepIndicator = document.getElementById('modal-step-indicator');
+      var submitBtn = document.getElementById('modal-submit-btn');
+      var loadingEl = document.getElementById('modal-loading');
+      if (!modal || !openBtn || !closeBtn) return;
+      function setLoading(loading) {
+        if (submitBtn) submitBtn.classList.toggle('is-hidden', loading);
+        if (loadingEl) {
+          loadingEl.classList.toggle('is-hidden', !loading);
+          loadingEl.setAttribute('aria-hidden', !loading);
+        }
+      }
+      function setStepPosition(el, position) {
+        if (!el) return;
+        el.classList.remove('modal-step--left', 'modal-step--center', 'modal-step--right');
+        el.classList.add('modal-step--' + position);
+        el.setAttribute('aria-hidden', position !== 'center');
+      }
+      function showStep(step) {
+        var targetStep = step === 1 ? step1 : step === 2 ? step2 : step === 3 ? step3 : step === 4 ? step4 : step5;
+        clearPillSelections(targetStep);
+        setStepPosition(step1, step > 1 ? 'left' : step === 1 ? 'center' : 'right');
+        setStepPosition(step2, step > 2 ? 'left' : step === 2 ? 'center' : 'right');
+        setStepPosition(step3, step > 3 ? 'left' : step === 3 ? 'center' : 'right');
+        setStepPosition(step4, step > 4 ? 'left' : step === 4 ? 'center' : 'right');
+        setStepPosition(step5, step === 5 ? 'center' : 'right');
+        if (backBtn) backBtn.classList.toggle('is-hidden', step === 1);
+        if (stepIndicator) stepIndicator.textContent = step + ' of 5';
+      }
+      var SUCCESS_MSG_1 = "Next week's interview is your moment.";
+      var SUCCESS_MSG_2 = "Step into it feeling confident, capable, and polished in a tailored black suit designed to make the right impression.";
+      var SUCCESS_MSG_3 = "Explore 14 sharp options made for exactly this kind of opportunity.";
+
+      function resetModal() {
+        showStep(1);
+        setLoading(false);
+        if (step5) step5.classList.remove('modal-step--success');
+        ['modal-step-success-text-1', 'modal-step-success-text-2', 'modal-step-success-text-3'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '';
+        });
+        var successBtn = document.getElementById('modal-step-success-btn');
+        if (successBtn) successBtn.classList.add('is-hidden');
+        var successPanel = document.getElementById('modal-step-success');
+        if (successPanel) successPanel.setAttribute('aria-hidden', 'true');
+      }
+
+      function applyPageUpdates() {
+        var productGridImg = document.getElementById('product-grid-img');
+        if (productGridImg) productGridImg.src = 'assets/suit-product-grid-matches.png';
+        var aboutBar = document.getElementById('about-bar');
+        if (aboutBar) aboutBar.classList.add('is-hidden');
+        var pageTitle = document.getElementById('page-title');
+        if (pageTitle) pageTitle.innerHTML = 'Matched Suit Suggestions<span class="about__count">(14)</span>';
+        var pickupLabel = document.getElementById('pickup-label');
+        if (pickupLabel) pickupLabel.textContent = 'Pick Up (5)';
+      }
+
+      function escapeHtml(c) {
+        return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c;
+      }
+      function typeWriter(el, text, speed, done, boldRanges) {
+        var i = 0;
+        function buildHtml(len) {
+          var out = '';
+          for (var j = 0; j < len; j++) {
+            if (boldRanges) {
+              for (var r = 0; r < boldRanges.length; r++) {
+                if (boldRanges[r][1] === j) out += '</span>';
+              }
+              for (var r = 0; r < boldRanges.length; r++) {
+                if (boldRanges[r][0] === j) out += '<span class="modal-step-success-strong">';
+              }
+            }
+            out += escapeHtml(text.charAt(j));
+          }
+          if (boldRanges) {
+            for (var r = 0; r < boldRanges.length; r++) {
+              if (boldRanges[r][1] === len) out += '</span>';
+            }
+          }
+          return out;
+        }
+        function type() {
+          if (i <= text.length) {
+            el.innerHTML = buildHtml(i);
+            if (i < text.length) {
+              i++;
+              setTimeout(type, speed);
+            } else {
+              if (done) done();
+            }
+          }
+        }
+        type();
+      }
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        resetModal();
+      }
+      openBtn.addEventListener('click', function() {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.add('modal--no-transition');
+        resetModal();
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            modal.classList.remove('modal--no-transition');
+          });
+        });
+      });
+      closeBtn.addEventListener('click', closeModal);
+      if (backBtn) {
+        backBtn.addEventListener('click', function() {
+          if (step5 && step5.classList.contains('modal-step--center')) showStep(4);
+          else if (step4 && step4.classList.contains('modal-step--center')) showStep(3);
+          else if (step3 && step3.classList.contains('modal-step--center')) showStep(2);
+          else if (step2 && step2.classList.contains('modal-step--center')) showStep(1);
+        });
+      }
+      modal.querySelectorAll('.modal-skip').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var next = parseInt(btn.getAttribute('data-skip-to'), 10);
+          if (!isNaN(next)) showStep(next);
+        });
+      });
+      function selectPillAndAdvance(pill, nextStep) {
+        if (pill.classList.contains('is-selected')) return;
+        pill.classList.add('is-selected');
+        setTimeout(function() {
+          showStep(nextStep);
+        }, 400);
+      }
+      function clearPillSelections(stepEl) {
+        if (!stepEl) return;
+        stepEl.querySelectorAll('.modal-pill').forEach(function(p) { p.classList.remove('is-selected'); });
+      }
+      modal.querySelectorAll('.modal-pill[data-step="occasion"]').forEach(function(pill) {
+        pill.addEventListener('click', function() { selectPillAndAdvance(pill, 2); });
+      });
+      modal.querySelectorAll('.modal-pill[data-step="showup"]').forEach(function(pill) {
+        pill.addEventListener('click', function() { selectPillAndAdvance(pill, 3); });
+      });
+      modal.querySelectorAll('.modal-pill[data-step="look"]').forEach(function(pill) {
+        pill.addEventListener('click', function() { selectPillAndAdvance(pill, 4); });
+      });
+      modal.querySelectorAll('.modal-pill[data-step="timing"]').forEach(function(pill) {
+        pill.addEventListener('click', function() { selectPillAndAdvance(pill, 5); });
+      });
+      var successBtn = document.getElementById('modal-step-success-btn');
+      if (successBtn) {
+        successBtn.addEventListener('click', function() {
+          applyPageUpdates();
+          closeModal();
+        });
+      }
+      var BOLD_1 = [[24, 35]];
+      var BOLD_2 = [[21, 30], [32, 39], [45, 53]];
+      if (submitBtn) {
+        submitBtn.addEventListener('click', function() {
+          var text1 = document.getElementById('modal-step-success-text-1');
+          var text2 = document.getElementById('modal-step-success-text-2');
+          var text3 = document.getElementById('modal-step-success-text-3');
+          if (!step5 || !text1 || !text2 || !text3) return;
+          var successPanel = document.getElementById('modal-step-success');
+          if (successPanel) successPanel.setAttribute('aria-hidden', 'false');
+          step5.classList.add('modal-step--success');
+          setTimeout(function() {
+            typeWriter(text1, SUCCESS_MSG_1, 10, function() {
+              typeWriter(text2, SUCCESS_MSG_2, 10, function() {
+                typeWriter(text3, SUCCESS_MSG_3, 10, function() {
+                  var successBtn = document.getElementById('modal-step-success-btn');
+                  if (successBtn) successBtn.classList.remove('is-hidden');
+                }, null);
+              }, BOLD_2);
+            }, BOLD_1);
+          }, 1300);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
